@@ -1,105 +1,3 @@
-// import React, { useState } from 'react';
-// import { BrowserRouter, Routes, Route, Navigate, Outlet, useOutletContext } from 'react-router-dom';
-// import { AuthProvider, useAuth } from './context/AuthContext';
-// import { ThemeProvider } from './context/ThemeContext';
-// import { Sidebar } from './components/Sidebar';
-// import { Header } from './components/Header';
-// import { ExpenseFormModal } from './components/ExpenseFormModal';
-// import { Dashboard } from './pages/Dashboard';
-// import { Expenses } from './pages/Expenses';
-// import { Analytics } from './pages/Analytics';
-// import { Settings } from './pages/Settings';
-// import { Login } from './pages/Login';
-// import { Register } from './pages/Register';
-// import { Expense } from './types';
-// import { api } from './services/api';
-
-// const ProtectedLayout: React.FC = () => {
-//   const { isAuthenticated, isLoading } = useAuth();
-//   const [sidebarOpen, setSidebarOpen] = useState(false);
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-//   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
-
-//   if (isLoading) {
-//     return <div className="min-h-screen flex items-center justify-center">Loading SpendWise...</div>;
-//   }
-
-//   if (!isAuthenticated) {
-//     return <Navigate to="/login" replace />;
-//   }
-
-//   const handleOpenAdd = () => {
-//     setEditingExpense(null);
-//     setIsModalOpen(true);
-//   };
-
-//   const handleOpenEdit = (expense: Expense) => {
-//     setEditingExpense(expense);
-//     setIsModalOpen(true);
-//   };
-
-//   const handleFormSubmit = async (data: Partial<Expense>) => {
-//     if (editingExpense) {
-//       await api.updateExpense(editingExpense.id, data);
-//     } else {
-//       await api.createExpense(data);
-//     }
-//     window.location.reload(); // Simple refresh for state synchronization
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
-//       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-//       <div className="lg:pl-64 flex flex-col min-h-screen">
-//         <Header 
-//           onMenuClick={() => setSidebarOpen(true)} 
-//           onAddExpenseClick={handleOpenAdd} 
-//         />
-//         <main className="flex-1 p-4 lg:p-8 max-w-7xl w-full mx-auto">
-//           <Outlet context={{ onOpenEdit: handleOpenEdit }} />
-//         </main>
-//       </div>
-
-//       <ExpenseFormModal
-//         isOpen={isModalOpen}
-//         onClose={() => setIsModalOpen(false)}
-//         onSubmit={handleFormSubmit}
-//         initialData={editingExpense}
-//       />
-//     </div>
-//   );
-// };
-
-// export const App: React.FC = () => {
-//   return (
-//     <ThemeProvider>
-//       <AuthProvider>
-//         <BrowserRouter>
-//           <Routes>
-//             <Route path="/login" element={<Login />} />
-//             <Route path="/register" element={<Register />} />
-            
-//             <Route element={<ProtectedLayout />}>
-//               <Route path="/dashboard" element={<Dashboard />} />
-//               <Route path="/expenses" element={<ExpensesWrapper />} />
-//               <Route path="/analytics" element={<Analytics />} />
-//               <Route path="/settings" element={<Settings />} />
-//               <Route path="/" element={<Navigate to="/dashboard" replace />} />
-//             </Route>
-//           </Routes>
-//         </BrowserRouter>
-//       </AuthProvider>
-//     </ThemeProvider>
-//   );
-// };
-
-// const ExpensesWrapper = () => {
-//   const { onOpenEdit } = useOutletContext<{ onOpenEdit: (expense: Expense) => void }>();
-//   return <Expenses onOpenEdit={onOpenEdit} />;
-// };
-// export default App;
-
-
 import React, { useState } from 'react';
 import {
   BrowserRouter,
@@ -126,9 +24,6 @@ import { Register } from './pages/Register';
 
 import { Expense } from './types';
 import { api } from './services/api';
-
-// const ProtectedLayout: React.FC = () => {
-//   const { isLoading } = useAuth();/
 
 const ProtectedLayout: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -214,7 +109,7 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/SpendWise">
           <Routes>
             {/* Login/Register are still available */}
             <Route path="/login" element={<Login />} />
