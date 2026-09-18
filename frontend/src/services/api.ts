@@ -2,7 +2,7 @@
 
 import { Expense, ExpensePaginatedResponse, AnalyticsDashboardData, User } from '../types';
 
-const API_URL = '/api';
+const API_URL = 'https://spendwise-zoz7.onrender.com/api';
 
 class ApiClient {
   private getHeaders(): HeadersInit {
